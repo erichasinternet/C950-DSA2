@@ -1,36 +1,30 @@
-# Create class for packages
 class Package:
+    # This method is called when an instance of the `Package` class is created.
     def __init__(
-        self, ID, address, city, state, zipcode, deadline_time, weight, status
+        self, package_id, address, city, state, area_code, time_limit, weight, status
     ):
-        self.ID = ID
+        # Initialize the instance's attributes with the provided values.
+        self.package_id = package_id
         self.address = address
         self.city = city
         self.state = state
-        self.zipcode = zipcode
-        self.deadline_time = deadline_time
+        self.area_code = area_code
+        self.time_limit = time_limit
         self.weight = weight
         self.status = status
-        self.departure_time = ''
-        self.delivery_time = ''
+        self.depart_time = ""
+        self.deliver_time = ""
 
+    # This method is called when a string representation of the instance is needed,
     def __str__(self):
-        return "%s, %s, %s, %s, %s, %s, %s, %s, %s" % (
-            self.ID,
-            self.address,
-            self.city,
-            self.state,
-            self.zipcode,
-            self.deadline_time,
-            self.weight,
-            self.delivery_time,
-            self.status,
-        )
+        # Return a string that contains the values of the instance's attributes.
+        return f"{self.package_id}, {self.address}, {self.city}, {self.state}, {self.area_code}, {self.time_limit}, {self.weight}, {self.deliver_time}, {self.status}"
 
-    def update_status(self, convert_timedelta):
-        if self.delivery_time < convert_timedelta:
-            self.status = "Delivered"
-        elif self.departure_time > convert_timedelta:
-            self.status = "En route"
+    def update_status(self, datetime):
+        # Update the status attribute based on the value of `datetime`.
+        if self.deliver_time < datetime:
+            self.status = "delivered"
+        elif self.depart_time > datetime:
+            self.status = "en route"
         else:
-            self.status = "At Hub"
+            self.status = "at the hub"

@@ -1,42 +1,52 @@
-# Create Hash Map class
-class CreateHashMap:
-    def __init__(self, initial_capacity=20):
-        self.list = []
-        for i in range(initial_capacity):
-            self.list.append([])
+class HashMap:
+    def __init__(self, capacity=20):
+        # Create a list of empty buckets with the specified initial capacity.
+        self.list = [[] for _ in range(capacity)]
 
-    # Inserts a new item into the hash table
-    # Citing source: WGU code repository W-2_ChainingHashTable_zyBooks_Key-Value_CSV_Greedy.py
-    def insert(self, key, item):  # does both insert and update
-        # get the bucket list where this item will go.
+    def insert(self, key, value):
+        # Calculate the bucket where the key-value pair should be inserted.
         bucket = hash(key) % len(self.list)
         bucket_list = self.list[bucket]
 
-        # update key if it is already in the bucket
-        for kv in bucket_list:  # O(N) CPU time
-            # print (key_value)
-            if kv[0] == key:
-                kv[1] = item
+        # Check if the key already exists in the bucket. If it does, update the value.
+        for pair in bucket_list:
+            if pair[0] == key:
+                pair[1] = value
                 return True
 
-        # if not, insert the item to the end of the bucket list
-        key_value = [key, item]
-        bucket_list.append(key_value)
+        # If the key doesn't exist, append the key-value pair to the bucket.
+        bucket_list.append([key, value])
         return True
 
-    # Lookup items in hash table
-    def lookup(self, key):
+    # Time complexity: O(1) average case
+    # Time complexity: O(n) worst case
+
+    def get(self, key):
+        # Calculate the bucket where the key-value pair should be located.
         bucket = hash(key) % len(self.list)
         bucket_list = self.list[bucket]
+
+        # Search the bucket for the specified key and return the corresponding value.
         for pair in bucket_list:
-            if key == pair[0]:
+            if pair[0] == key:
                 return pair[1]
 
-    # Hash remove method - removes item from hash table
-    def hash_remove(self, key):
-        slot = hash(key) % len(self.list)
-        destination = self.list[slot]
+        # If the key is not found, return None.
+        return None
 
-        # If the key is found in the hash table then remove the item
-        if key in destination:
-            destination.remove(key)
+    # Time complexity: O(1) average case
+    # Time complexity: O(n) worst case
+
+    def remove(self, key):
+        # Calculate the bucket where the key-value pair should be inserted.
+        bucket = hash(key) % len(self.list)
+        bucket_list = self.list[bucket]
+
+        # Iterate over the key-value pairs in the bucket and delete the pair if the key matches.
+        for (i, k) in (bucket_list):
+            if k == key:
+                del bucket_list[i]
+                break
+
+    # Time complexity: O(n) average case
+    # Time complexity: O(n) worst case
