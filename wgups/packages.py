@@ -20,6 +20,8 @@ class Package:
         # Return a string that contains the values of the instance's attributes.
         return f"{self.package_id}, {self.address}, {self.city}, {self.state}, {self.area_code}, {self.time_limit}, {self.weight}, {self.deliver_time}, {self.status}"
 
+    # This method updates the status attribute of the instance based on the provided `datetime`.
+    # The time complexity of this method is O(1) because it performs a constant number of operations.
     def update_status(self, datetime):
         # Update the status attribute based on the value of `datetime`.
         if self.deliver_time < datetime:

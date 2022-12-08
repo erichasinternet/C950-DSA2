@@ -1,5 +1,6 @@
 # Created by: Eric Lawson
 # Student ID: 001009860
+# The time complexity of this entire program is O(n^2)
 import csv
 import datetime
 import trucks
@@ -28,7 +29,8 @@ with open("data/packages.csv", mode="r", encoding="utf-8-sig") as packages_csv:
     # Convert the package data to a list
     package_array = list(package_data)
 
-
+# This function parses the package data and inserts it into a hash map.
+# The time complexity of this function is O(n)
 def get_package_data(csv, hash_map):
     # Iterate over each package in the package data list
     for package in package_array:
@@ -58,6 +60,8 @@ def get_package_data(csv, hash_map):
         hash_map.insert(package_id, package_object)
 
 
+# This function calculates the distance between two locations.
+# The time complexity of this function is O(1)
 def trip_distance(x_value, y_value):
     # Check if the distance from x_value to y_value is defined
     trip_distance = distance_data[x_value][y_value]
@@ -71,6 +75,7 @@ def trip_distance(x_value, y_value):
     return float(trip_distance)
 
 
+# The time complexity of this function is O(n)
 def get_address(address):
     # Loop through all rows in the address data
     for row in address_data:
@@ -166,7 +171,8 @@ hash_map = HashMap()
 # Get the package data from the specified file and store it in the hash map
 get_package_data("data/packages.csv", hash_map)
 
-
+# The time complexity of this function is O(n^2), because it
+# iterates over all packages in the truck and then calls the trip_distance function on each package
 def deliver(trucks):
     # Create a list of undelivered packages
     undelivered = [hash_map.get(package_id) for package_id in trucks.packages]
@@ -182,7 +188,6 @@ def deliver(trucks):
                 get_address(trucks.address), get_address(p.address)
             ),
         )
-
         # Add the package to the list of packages in the truck
         trucks.packages.append(next_package.package_id)
         # Remove the package from the list of undelivered packages
@@ -216,7 +221,8 @@ truck_3.depart_time = min(truck_1.time, truck_2.time)
 # Deliver packages with truck 3
 deliver(truck_3)
 
-
+# Time complexity: O(n) average case
+# Time complexity: O(n^2) worst case
 class Main:
     # Define a string to display when the user inputs an invalid value
     invalid_input = "Error! Invalid input, exiting the program..."
@@ -224,12 +230,7 @@ class Main:
     # Display the program banner
     print(
         r"""
-██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗    ████████╗ ██████╗     ██╗    ██╗ ██████╗ ██╗   ██╗██████╗ ███████╗██╗
-██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝    ╚══██╔══╝██╔═══██╗    ██║    ██║██╔════╝ ██║   ██║██╔══██╗██╔════╝██║
-██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗         ██║   ██║   ██║    ██║ █╗ ██║██║  ███╗██║   ██║██████╔╝███████╗██║
-██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝         ██║   ██║   ██║    ██║███╗██║██║   ██║██║   ██║██╔═══╝ ╚════██║╚═╝
-╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗       ██║   ╚██████╔╝    ╚███╔███╔╝╚██████╔╝╚██████╔╝██║     ███████║██╗
- ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝       ╚═╝    ╚═════╝      ╚══╝╚══╝  ╚═════╝  ╚═════╝ ╚═╝     ╚══════╝╚═╝                                                                                                                                  
+hi                                                                                                                         
     """
     )
 

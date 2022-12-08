@@ -1,5 +1,6 @@
 class Truck:
     # This method is called when an instance of the `Truck` class is created.
+    # The time complexity of this method is O(1) because it performs a constant number of operations.
     def __init__(self, address, capacity, depart_time, load, mileage, packages, speed):
         self.address = address
         self.capacity = capacity
